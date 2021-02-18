@@ -8,8 +8,6 @@ proxies = {
         'https': 'socks5h://127.0.0.1:9050'
 }
 
-# Returns array of .onion links from given .onion address. Assumes site is alive. If site is not alive it will throw an error.
-# So there should be a separate function to verify a site is alive.
 def getHTML(onion):
         onions = []
         print('Attempting to get .onion links from ' + str(onion) + '...')
@@ -51,12 +49,6 @@ def alive(onion):
 
 # http://wiki5kauuihowqi5.onion/
 
-
-# All I want this to do is read fresh_onions.txt to an array
-# Then delete the contents of fresh_onions.txt
-# Then go through each of those onions and scrape them
-# Then add all the living links it finds to fresh_onions.txt and onion_garden.txt
-# Repeat
 def init():
         onion = open('fresh_onions.txt','r')
         fresh_onions = onion.readlines()
