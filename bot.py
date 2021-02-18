@@ -8,6 +8,8 @@ proxies = {
         'https': 'socks5h://127.0.0.1:9050'
 }
 
+# Returns array of .onion links from given .onion address. Assumes site is alive. If site is not alive it will throw an error.
+# So there should be a separate function to verify a site is alive.
 def getHTML(onion):
         onions = []
         print('Attempting to get .onion links from ' + str(onion) + '...')
@@ -15,6 +17,7 @@ def getHTML(onion):
         try:
                 html=requests.get(onion, proxies=proxies, timeout=10).text
 
+                # Looks for all 'href' attributes in html object.
                 for link in BeautifulSoup(html, parse_only=SoupStrainer('a'), features='html.parser'):
                         if link.has_attr('href'):
                                 # Check if there's any .onion links.
@@ -80,7 +83,8 @@ def init():
                         so.write(link.strip())
                         so.close()
 
-                        # Now it will check all the new links it found to see if they're alive. Alive links will be add$                        for onion in onions:
+                        # Now it will check all the new links it found to see if they're alive. Alive links will be added to fresh_onions.txt
+                        for onion in onions:
                                 freshOnion = alive(onion)
 
                                 if freshOnion == 1:
@@ -107,6 +111,11 @@ def init():
 
         init()
 init()
+
+
+
+
+
 
 
 
